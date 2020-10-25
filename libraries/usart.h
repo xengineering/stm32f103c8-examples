@@ -13,8 +13,6 @@
 
 #include "fifo.h"
 
-#define USART_BUFFER_SIZE 30
-
 
 typedef struct USART{
 
@@ -26,8 +24,7 @@ typedef struct USART{
 
 // init functions
 
-void usart_init(USART *usart);
-void usart_deinit(USART *usart);
+void usart_init(USART *usart, uint8_t *rx_buffer, uint16_t rx_buffersize, uint8_t *tx_buffer, uint16_t tx_buffersize);
 
 
 // write functions

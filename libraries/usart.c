@@ -8,7 +8,7 @@ extern USART usart3;
 
 // init functions
 
-void usart_init(USART *usart)
+void usart_init(USART *usart, uint8_t *rx_buffer, uint16_t rx_buffersize, uint8_t *tx_buffer, uint16_t tx_buffersize)
 {
     // clock config
     rcc_periph_clock_enable(RCC_GPIOB);  // for USART3
@@ -32,14 +32,8 @@ void usart_init(USART *usart)
     usart_enable(USART3);
 
     // fifo init
-    fifo_init(&usart->rx_fifo, USART_BUFFER_SIZE);
-    fifo_init(&usart->tx_fifo, USART_BUFFER_SIZE);
-}
-
-void usart_deinit(USART *usart)
-{
-    fifo_deinit(&usart->rx_fifo);
-    fifo_deinit(&usart->tx_fifo);
+    fifo_init(&usart->rx_fifo, rx_buffer, rx_buffersize);
+    fifo_init(&usart->tx_fifo, tx_buffer, tx_buffersize);
 }
 
 

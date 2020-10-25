@@ -11,6 +11,8 @@
 
 
 #define DELAY 1000000
+#define RX_BUFFER_SIZE 50
+#define TX_BUFFER_SIZE 50
 
 
 void clock_init(void);
@@ -24,13 +26,16 @@ USART usart3;
 
 int main(void)
 {
+	uint8_t rx_buffer[RX_BUFFER_SIZE];
+	uint8_t tx_buffer[TX_BUFFER_SIZE];
+
 	clock_init();
 	gpio_init();
-	usart_init(&usart3);
+	usart_init(&usart3, rx_buffer, RX_BUFFER_SIZE, tx_buffer, TX_BUFFER_SIZE);
 
 	gpio_set(GPIOC, GPIO13);
 
-	char welcome[] = "Hallo Freunde!\r";
+	char welcome[] = "Hello world!\r";
 	usart_write(&usart3, welcome);
 
 	uint8_t buff;
