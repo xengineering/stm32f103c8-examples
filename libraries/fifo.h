@@ -1,30 +1,30 @@
 
 
 /*
-	FIFO Ring Buffer uint8_t array ring_buffer (example length is 8) 
-	   with data (x) and read and write index:
+    FIFO Ring Buffer uint8_t array ring_buffer (example length is 8)
+    with data (x) and read and write index:
 
-	 --- --- --- --- --- --- --- ---
-	|   |   | x | x | x |   |   |   |
-	 --- --- --- --- --- --- --- ---
-			  ^		   ^
-			  |		   |
-		  read_index	  |
-					 write_index
+     --- --- --- --- --- --- --- ---
+    |   |   | x | x | x |   |   |   |
+     --- --- --- --- --- --- --- ---
+              ^           ^
+              |           |
+          read_index      |
+                     write_index
 
-	 --- --- --- --- --- --- --- ---
-	| x | x |   |   |   | x | x | x |
-	 --- --- --- --- --- --- --- ---
-			  ^		   ^
-			  |		   |
-		 write_index	  |
-					  read_index
+     --- --- --- --- --- --- --- ---
+    | x | x |   |   |   | x | x | x |
+     --- --- --- --- --- --- --- ---
+              ^           ^
+              |           |
+         write_index      |
+                      read_index
 
-	- input data goes to position of write_index
-	- output data comes from read_index position
-	- after input/output operation the according index has to be modified
-	- according to the idea of ring buffers the write_index could be 
-	  smaller than the read_index
+    - input data goes to position of write_index
+    - output data comes from read_index position
+    - after input/output operation the according index has to be modified
+    - according to the idea of ring buffers the write_index could be 
+      smaller than the read_index
 */
 
 
