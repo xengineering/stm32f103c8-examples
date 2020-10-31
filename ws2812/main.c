@@ -6,8 +6,9 @@
 #include "ws2812.h"
 
 
-#define DELAY 30000  // 18,000,000 nops are one second
-#define BRIGHTNESS 100
+#define DELAY 90000  // 18,000,000 nops are one second @ 72 MHz (one nop --> 4 clock cycles)
+#define BRIGHTNESS 30
+#define LED_ARRAY_LENGTH 3
 
 
 void clock_init(void);
@@ -15,31 +16,32 @@ void gpio_init(void);
 void delay(void);
 
 
-ws2812_init_typedef ws2812;
-
-
 int main(void)
 {
 	clock_init();
 	gpio_init();
-	ws2812_init(&ws2812, GPIOB, GPIO13, 1, 1);
+	uint8_t led_array_buffer[LED_ARRAY_LENGTH*WS2812_NUMBER_OF_COLORS];
+	WS2812_ARRAY led_panel;
+	ws2812_init(&led_panel, GPIOB, GPIO13, (uint8_t *)led_array_buffer, LED_ARRAY_LENGTH);
 
-	while(1){
-		/*ws2812_send_led(&ws2812, BRIGHTNESS, 0, 0);
-		delay();
-		ws2812_send_led(&ws2812, 0, BRIGHTNESS, 0);
-		delay();
-		ws2812_send_led(&ws2812, 0, 0, BRIGHTNESS);
-		delay();
-		ws2812_send_led(&ws2812, BRIGHTNESS, BRIGHTNESS, BRIGHTNESS);
-		delay();*/
+	while(1)
+	{
+		for (uint16_t i=0; i<=BRIGHTNESS; i++)
+		{
+			ws2812_set_array_led(&led_panel, 0, i, 0, 0);
+			ws2812_set_array_led(&led_panel, 1, 0, i, 0);
+			ws2812_set_array_led(&led_panel, 2, 0, 0, i);
 
-		for (uint16_t i=0; i<=255; i++){
-			ws2812_send_led(&ws2812, i, 0, 0);
+			ws2812_write_leds(&led_panel);
 			delay();
 		}
-		for (uint16_t i=255; i>0; i--){
-			ws2812_send_led(&ws2812, i, 0, 0);
+		for (uint16_t i=BRIGHTNESS; i>0; i--)
+		{
+			ws2812_set_array_led(&led_panel, 0, i, 0, 0);
+			ws2812_set_array_led(&led_panel, 1, 0, i, 0);
+			ws2812_set_array_led(&led_panel, 2, 0, 0, i);
+
+			ws2812_write_leds(&led_panel);
 			delay();
 		}
 	}
