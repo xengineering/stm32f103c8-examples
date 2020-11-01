@@ -16,8 +16,8 @@
 
 typedef struct USART{
 
-    FIFO rx_fifo;
-    FIFO tx_fifo;
+	FIFO rx_fifo;
+	FIFO tx_fifo;
 
 } USART;
 
@@ -31,7 +31,7 @@ void usart_init(USART *usart, uint8_t *rx_buffer, uint16_t rx_buffersize, uint8_
 
 uint16_t usart_write_bytes(USART *usart, uint8_t *data_source, uint16_t data_length);
 uint16_t usart_write(USART *usart, char *str);
-//uint16_t usart_writeln(USART *usart, char *str);
+uint16_t usart_writeln(USART *usart, char *str);
 
 
 // read functions
