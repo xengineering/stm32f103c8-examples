@@ -37,6 +37,14 @@ To compile the software you have to use a suitable compiler. I recommend the GNU
 
 To modify the software in this repository or write your own code you can use any text editor. Please only use a complete IDE (Integrated Development Environment) if you know **why**.
 
+### Additional Tools
+
+To ensure that the compilation will work you have to install these packages on Arch Linux:
+
+```sudo pacman -S arm-none-eabi-newlib arm-none-eabi-binutils```
+
+On another distribution you will have to look for the corresponding packages.
+
 
 ## Usage
 
